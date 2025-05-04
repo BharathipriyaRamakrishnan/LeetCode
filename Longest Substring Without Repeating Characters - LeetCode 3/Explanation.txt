@@ -1,0 +1,60 @@
+Problem Statement:
+
+Given a string s, find the length of the longest substring without repeating characters.
+    A substring is a contiguous block of characters.
+    Repeating characters? Instant disqualification.
+
+Example:
+Input: "abcabcbb"
+Valid substrings without duplicates:
+    -> "abc" : length = 3
+    -> "bca" : length = 3
+    -> "cab" : length = 3
+
+Output: 3
+
+Intuition - Use the sliding window tevhnique.
+If someone says:
+    "Find the longest thing that statisfies a condition inside a string"
+You should Instantly think:
+    "Sliding Window!"
+
+Imagine scanning the string with two pointers:
+    -> left : start of the window
+    -> right : end of the window
+
+You expand the window to include new characters (right++)
+if there's a duplicate, you slide left forward to skip the repeated character.
+
+Step-by-step logic :
+
+1. Use a HashMap to store charcaters and their last seen positions.
+2. Initialize left = 0, maxLength = 0
+3. Slide right through the string:
+    -> If the current character was seen before AND is within the current window (left <= lastSeenIndex), we have a duplicate -> move left to lastSeenIndex + 1.
+    -> Update the character's last seen position in the map.
+    -> Update maxLength if the current window is longer.
+
+Trace Example
+For "abcabcbb":
+
+right	char	left	      Action
+0	     a	     0	  new char → update maxLength = 1
+1	     b	     0	  new char → maxLength = 2
+2	     c	     0	  new char → maxLength = 3
+3	     a	     1	  'a' repeated → move left to 1
+4	     b	     2	  'b' repeated → move left to 2
+5	     c	     3	  'c' repeated → move left to 3
+6	     b	     4	  'b' repeated → move left to 4
+7	     b	     5	  'b' repeated → move left to 5
+
+✅ Final maxLength = 3
+
+Time & Space complexity
+-> Time: O(n) - each character is visited at most twice.
+-> Space: O(k) - where k is the number of unique characters (up to 128 for ASCII)
+
+Key Takeaways
+-> This is the gold standard sliding window question.
+-> Keep track of the last seen position of characters using a map.
+-> Always move your window's left pointer to skip duplicates.-
