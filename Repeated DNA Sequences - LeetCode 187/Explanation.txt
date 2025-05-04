@@ -1,0 +1,59 @@
+Problem Statement :
+
+You're handed a long DNA sequence (a string of letters: A, C, G and T) and you're asked:
+
+	"Find all 10-letter-long substrings that appear more than once in the DNA"
+That's it. Just spot the duplicates - but only those are exactly 10 characters long.
+
+Let's understand with an Example :
+
+Suppose you're given:
+
+Input: "AAAAACCCCCAAAAACCCCCAAAAAGGGTTT"
+
+You should return:
+
+Output: ["AAAAACCCCC", "CCCCCAAAAA"]
+
+Why ?
+Because:
+ -> "AAAAACCCCC" appears twice
+ -> "CCCCCAAAAA" appears twice
+ -> We only care about repeated substrings of length 10
+
+Strategy: SlidingWindow + HashSet
+
+We can solve this efficiently using a sliding window technique. Here's how:
+
+Step-by-step:
+
+1. Slide a window of size 10 across the string.
+2. Store each 10-letter substring in a seen set.
+3. If you see it again, put it in a repeated set.
+4. Return all elements in repeated.
+
+Why a set ?
+
+-> Set gives us O(1) lookup time.
+-> Easy to check if we've "seen" the substring before. Since set doesn't store duplicated and returns false if we try to add it.
+
+Walkthrough Example:
+
+For input: "AAAAAAAAAAA"
+Window slides like this:
+
+i = 0 -> "AAAAAAAAAA" -> added to 'seen'
+i = 1 -> "AAAAAAAAAA" -> already in 'seen' -> added to 'repeated'
+
+Final result ?
+["AAAAAAAAAA"]
+
+Time and space complexity
+Time : O(n), where n is the length of the string
+Space : O(n) for sets storing substrings;
+
+Key Takeaways:
+
+->Think slidingwindow whenever you're working with substrings of fixed size.
+->use Set for efficient duplicate detection.
+->Always check your loop boundary( <=, not <) when working with fixed-size windows).
